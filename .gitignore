@@ -1,0 +1,32 @@
+#entorno virtuales 
+venv/
+.env/
+
+# terraform
+*.terraform
+*.terraform.lock.hcl
+*terraform.tfstate*
+
+# archivos generados
+*.json
+
+#archivos temporales  
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+#info 
+*.egg-info/
+
+# diagramas 
+*.dot
+*.gv
+*.png
+*.svg
+
+# log 
+*.log
+
+# setup
+.setup_done

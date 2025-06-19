@@ -1,0 +1,43 @@
+# src/builder/build_config.yaml
+# Define los pasos de construcción y el orden de ejecución para el proyecto pc3-grupo4-tema3.
+
+# Configuración global
+global_settings:
+  terraform_command: "terraform"
+  auto_approve: true
+
+# Pasos de la construcción. Se ejecutarán en el orden en que aparecen.
+build_steps:
+  - name: "01-deploy-builder-pattern-with-factory" # Nombre actualizado para claridad
+    description: "Despliega la infraestructura usando el patrón Builder, que a su vez invoca al Factory."
+    directory: "."             # Ruta relativa desde src/builder/ (es decir, el módulo builder mismo)
+    action: "apply"
+    variables:
+      # Variables existentes del Builder
+      step1_initialize_env_enabled: true
+      step1_config:
+        name: "ProductionBase"
+        type: "HighAvailability"
+      step2_configure_network_enabled: true
+      step2_config:
+        cidr_block: "10.100.0.0/16"
+        subnet_count: "3"
+      step3_deploy_app_enabled: true # Habilitado para que el factory pueda depender de él
+      step3_config:
+        app_name: "CriticalServiceApp"
+        app_version: "v2.1.0"
+
+      invoke_factory_enabled: true # Controla si el Builder debe invocar al Factory
+      factory_module_config:       # Configuración específica para el módulo Factory
+        factory_type: "local_file" # Tipo de producto que creará el Factory
+        # Parámetros para 'local_file'
+        file_name: "created_by_builder_invoking_factory.txt"
+        file_content: "Este archivo fue generado por el Factory, invocado desde un paso del Builder."
+
+  - name: "02-deploy-singleton-pattern" 
+    description: "Asegura una instancia única con el patrón Singleton."
+    directory: "../singleton"
+    action: "apply"
+    variables:
+      instance_name: "global-logging-service"
+      instance_type: "enterprise"

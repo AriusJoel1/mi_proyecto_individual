@@ -1,0 +1,13 @@
+#!/usr/bin/bash
+
+# nombre de la rama 
+branch_name=$(git rev-parse --abbrev-ref HEAD)
+
+# Bloquear push desde main 
+if [[ "$branch_name" == "main" ]]; then
+    echo "Push directo a '$branch_name' bloqueado. Usa una rama feature/*"
+    exit 1
+fi
+
+echo "Push permitido desde la rama '$branch_name'"
+exit 0

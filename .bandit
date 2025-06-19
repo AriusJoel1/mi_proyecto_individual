@@ -1,0 +1,6 @@
+skips: 
+  - B101  #prueba de uso de asercion
+  - B307  #inseguro uso de hash 
+
+output-format: txt
+quiet: False

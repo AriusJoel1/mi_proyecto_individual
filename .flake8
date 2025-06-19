@@ -1,0 +1,12 @@
+[flake8]
+max-line-length = 100
+exclude =
+    .git,
+    __pycache__,
+    venv
+
+# E203 espacio antes de ':' 
+# W503 advertir sobre linea rota luego de operador binario
+extend-ignore =
+    E203,  
+    W503   
